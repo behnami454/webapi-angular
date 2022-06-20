@@ -1,4 +1,5 @@
 using backend.Data;
+using backend.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,11 @@ namespace backend
         {
 
             services.AddControllers();
+
+            services.AddScoped<IStadiumCommandText, StadiumCommandText>();
+
+            services.AddScoped<IStadiumRepository, StadiumRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });
@@ -48,6 +54,8 @@ namespace backend
 
             services.AddDbContext<ContactContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+
 
         }   
 
