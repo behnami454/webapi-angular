@@ -19,7 +19,7 @@ namespace backend.Controllers
         private readonly ArticleContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public ArticlesController(ArticleContext context , IWebHostEnvironment env)
+        public ArticlesController(ArticleContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;
@@ -121,7 +121,7 @@ namespace backend.Controllers
                 string FileName = postedFile.FileName;
                 var physicalPath = _env.ContentRootPath + "/Photos" + FileName;
 
-                using(var stream = new FileStream(physicalPath , FileMode.Create))
+                using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);
                 }

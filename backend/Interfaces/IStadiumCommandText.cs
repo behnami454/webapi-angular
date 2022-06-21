@@ -9,12 +9,10 @@ namespace backend.Interfaces
     {
         string GetAllStadiums { get; }
         string GetStadiumsById { get; }
-
         string AddStadiums { get; }
         string UpdateStadiums { get; }
-
         string DeleteStadiums { get; }
-         
+
     }
 
     public class StadiumCommandText : IStadiumCommandText

@@ -13,7 +13,6 @@ namespace backend.Interfaces
     {
         List<Stadium> GetAllStadiums();
         Stadium GetStadiumsById(int StadiumId);
-
         void AddStadiums(Stadium stadium);
         void UpdateStadiums(Stadium stadium);
         void DeleteStadiums(int StadiumId);
@@ -40,18 +39,18 @@ namespace backend.Interfaces
         {
             ExecuteCommand(_connectionString,
                 conn => conn.Query<Stadium>(_stadiumCommandText.AddStadiums,
-                new { StadiumId = stadium.StadiumId, StadiumName = stadium.StadiumName, StadiumPlace = stadium.StadiumPlace}));
+                new { StadiumId = stadium.StadiumId, StadiumName = stadium.StadiumName, StadiumPlace = stadium.StadiumPlace }));
         }
 
 
         public void DeleteStadiums(int StadiumId)
         {
             ExecuteCommand(_connectionString,
-      conn =>
-      {
+            conn =>
+        {
           var query = conn.Query<Stadium>(_stadiumCommandText.DeleteStadiums,
               new { StadiumId = StadiumId });
-      });
+            });
         }
 
         public List<Stadium> GetAllStadiums()
@@ -71,8 +70,8 @@ namespace backend.Interfaces
         public void UpdateStadiums(Stadium stadium)
         {
             ExecuteCommand(_connectionString,
-    conn => conn.Query<Stadium>(_stadiumCommandText.UpdateStadiums,
-        new { StadiumName = stadium.StadiumName, StadiumPlace = stadium.StadiumPlace, StadiumId = stadium.StadiumId }));
+             conn => conn.Query<Stadium>(_stadiumCommandText.UpdateStadiums,
+             new { StadiumName = stadium.StadiumName, StadiumPlace = stadium.StadiumPlace, StadiumId = stadium.StadiumId }));
         }
 
         #region Helpers
