@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Interfaces;
+using backend.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend
 {
@@ -67,6 +69,21 @@ namespace backend
             services.AddDbContext<ContactContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
+            services.AddDbContext<AuthenticationContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddDefaultIdentity<User>()
+            .AddEntityFrameworkStores<AuthenticationContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            }
+            );
 
 
         }
@@ -88,6 +105,8 @@ namespace backend
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
